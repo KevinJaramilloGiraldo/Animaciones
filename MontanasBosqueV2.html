@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Paisaje con Frase Moral</title>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: sans-serif;
+    }
+
+    .paisaje {
+      height: 100vh;
+      background: linear-gradient(to bottom, #87CEEB 0%, #B0E0E6 50%, #7CFC00 100%);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ☀️ Sol */
+    .sol {
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, #FFD700, #FFA500);
+      border-radius: 50%;
+      position: absolute;
+      top: 5%; /* Bajado el sol */
+      left: 40px;
+      box-shadow: 0 0 80px rgba(255, 215, 0, 0.7);
+      z-index: 3;
+    }
+
+    @keyframes desvanecerRayo {
+      0% { opacity: 1; }
+      50% { opacity: 0.2; }
+      100% { opacity: 1; }
+    }
+
+    .nube, .nube2 {
+      width: 150px;
+      height: 60px;
+      background: #fff;
+      border-radius: 50%;
+      position: absolute;
+      box-shadow: 50px 0 #fff, 90px -10px #fff, 60px -20px #fff;
+      animation: moverNube 40s linear infinite;
+    }
+
+    .nube {
+      top: 90px;
+      left: -200px;
+    }
+
+    .nube2 {
+      top: 50px;
+      left: -300px;
+      animation-delay: 10s;
+    }
+
+    @keyframes moverNube {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(120vw); }
+    }
+
+    .montañas {
+      position: absolute;
+      bottom: 60px;
+      width: 100%;
+      height: 650px;
+      background: linear-gradient(to top, #4d4d4d 0%, #d0cfcf 100%);
+      clip-path: polygon(0% 100%, 3% 60%, 6% 95%, 10% 50%, 14% 90%, 18% 40%, 22% 85%, 26% 35%, 30% 90%, 35% 40%, 40% 100%, 45% 25%, 50% 90%, 55% 40%, 60% 85%, 65% 35%, 70% 90%, 75% 40%, 80% 95%, 85% 50%, 90% 90%, 95% 45%, 100% 100%);
+    }
+
+    .cesped {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      height: 80px;
+      background: repeating-linear-gradient(
+        45deg,
+        #228B22,
+        #228B22 10px,
+        #32CD32 10px,
+        #32CD32 20px
+      );
+    }
+
+    .lago {
+      position: absolute;
+      bottom: 30px;
+      top: 92%;
+      left: 50%;
+      width: 250px;
+      height: 100px;
+      background: radial-gradient(circle at center, #1E90FF 0%, #00BFFF 80%);
+      border-radius: 50%;
+      box-shadow: 0 0 20px rgba(0, 191, 255, 0.5);
+    }
+
+    .arbol {
+      position: absolute;
+      bottom: 60px;
+      width: 20px;
+      height: 80px;
+      background: #8B4513;
+      animation: moverArbol 2s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+      z-index: 2;
+    }
+
+    .copa {
+      position: absolute;
+      bottom: 70px;
+      left: -30px;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, #228B22 30%, #006400 100%);
+      border-radius: 50%;
+      box-shadow: -20px 10px #006400, 20px 10px #228B22;
+    }
+
+    @keyframes moverArbol {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(2deg); }
+    }
+
+    .flor {
+      position: absolute;
+      width: 4px;
+      height: 30px;
+      background: green;
+      animation: florOscila 3s ease-in-out infinite alternate;
+      transform-origin: bottom center;
+    }
+
+    .petalos {
+      position: absolute;
+      top: -25px;
+      left: -18px;
+      width: 40px;
+      height: 40px;
+      background: pink;
+      border-radius: 50%;
+      box-shadow: -15px 0 pink, 15px 0 pink, 0 -15px pink, 0 15px pink;
+      animation: girarPetalos 4s linear infinite;
+    }
+
+    .centro {
+      position: absolute;
+      top: -10px;
+      left: -5px;
+      width: 15px;
+      height: 15px;
+      background: yellow;
+      border-radius: 50%;
+      box-shadow: 0 0 5px rgba(255, 255, 0, 0.6);
+    }
+
+    @keyframes flor {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(3deg); }
+    }
+
+    @keyframes girarPetalos {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .frase {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      background: rgba(0, 0, 0, 0.4);
+      padding: 20px 30px;
+      border-radius: 12px;
+      color: white;
+      box-shadow: 0 0 15px rgba(0,0,0,0.6);
+      z-index:5;
+    }
+
+    .frase p {
+      font-size: 30px;
+      margin: 0;
+      z-index:5;
+    }
+
+    .arbol1 { 
+        left: 10%; 
+    }
+    .arbol2 { 
+        left: 25%; 
+    }
+    .arbol3 { 
+        left: 50%; 
+    }
+    .arbol4 { 
+        left: 65%; 
+    }
+    .arbol5 { 
+        left: 80%; 
+    }
+
+    
+    .flor1 { 
+        left: 20%; 
+        bottom: 20px; 
+    }
+    .flor2 { 
+        left: 30%; 
+        bottom: 22px; 
+    }
+    .flor3 { 
+        left: 40%; 
+        bottom: 24px; 
+    }
+    .flor4 { 
+        left: 60%; 
+        bottom: 26px; 
+    }
+    .flor5 { 
+        left: 70%; 
+        bottom: 20px; 
+    }
+  </style>
+</head>
+<body>
+  <div class="paisaje">
+    <div class="sol"></div>
+
+    <div class="nube"></div>
+    <div class="nube2"></div>
+
+    <div class="montañas"></div>
+    <div class="cesped"></div>
+    <div class="lago"></div>
+
+    <div class="arbol arbol1"><div class="copa"></div></div>
+    <div class="arbol arbol2"><div class="copa"></div></div>
+    <div class="arbol arbol3"><div class="copa"></div></div>
+    <div class="arbol arbol4"><div class="copa"></div></div>
+    <div class="arbol arbol5"><div class="copa"></div></div>
+
+    <div class="flor flor1"><div class="petalos"></div><div class="centro"></div></div>
+    <div class="flor flor2"><div class="petalos"></div><div class="centro"></div></div>
+    <div class="flor flor3"><div class="petalos"></div><div class="centro"></div></div>
+    <div class="flor flor4"><div class="petalos"></div><div class="centro"></div></div>
+    <div class="flor flor5"><div class="petalos"></div><div class="centro"></div></div>
+
+    <div class="frase">
+      <p>La alegría crece cuando la compartimos con otros.</p>
+    </div>
+  </div>
+</body>
+</html>
