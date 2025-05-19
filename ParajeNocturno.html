@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Paisaje Nocturno Animado</title>
+  <style>
+    html, body {
+      margin: 0; padding: 0; height: 100vh; overflow: hidden;
+      background: linear-gradient(to top, #000428, #3a2602); /* cielo nocturno */
+      font-family: Arial, sans-serif;
+    }
+
+    /* Estrellas */
+    .estrella {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: parpadeo 2s infinite alternate;
+    }
+
+    @keyframes parpadeo {
+      0% { opacity: 0.2; transform: scale(1); }
+      100% { opacity: 1; transform: scale(1.3); }
+    }
+
+    /* Frase */
+    .frase {
+      position: absolute;
+      top: 50%;
+      left: 60%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 20px 30px;
+      border-radius: 15px;
+      font-weight: bold;
+      text-align: center;
+      z-index: 10;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    /* Ocultamos el sol */
+    .sol {
+      display: none;
+    }
+
+    .nube {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: moverNube 60s linear infinite;
+    }
+
+    @keyframes moverNube {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100vw); }
+    }
+
+    .nube.reversa {
+      animation: moverNubeReversa 80s linear infinite;
+    }
+
+    @keyframes moverNubeReversa {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100vw); }
+    }
+
+    /* Nubes animadas con distintas posiciones y tamaños */
+    .nube {
+      position: absolute;
+      background: #fff;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: moverNube 60s linear infinite;
+    }
+
+    @keyframes moverNube {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(100vw); }
+    }
+
+    .nube.reversa {
+      animation: moverNubeReversa 80s linear infinite;
+    }
+
+    @keyframes moverNubeReversa {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100vw); }
+    }
+
+    /* Nubes animadas con distintas posiciones y tamaños */
+    .nube1 {
+      top: 100px; left: -100px;
+      width: 110px; height: 55px; /* tamaño aumentado */
+      box-shadow: 40px 0px #fff, 80px 15px #fff;
+    }
+
+    .nube2 {
+      top: 150px; left: -200px;
+      width: 60px; height: 30px;
+      box-shadow: 25px -5px #fff, 50px 5px #fff;
+    }
+
+    .nube3 {
+      top: 60px; left: -300px;
+      width: 70px; height: 35px;
+      box-shadow: 25px 0px #fff, 50px 10px #fff;
+    }
+
+    .nube4 {
+      top: 220px; left: 100vw;
+      width: 90px; height: 45px; /* tamaño aumentado */
+      box-shadow: 30px -5px #fff, 60px 10px #fff;
+    }
+
+    .nube5 {
+      top: 80px; left: 100vw;
+      width: 130px; height: 65px; /* tamaño aumentado */
+      box-shadow: 45px 0px #fff, 90px 15px #fff;
+    }
+
+    .nube6 {
+      top: 200px; left: 100vw;
+      width: 65px; height: 30px;
+      box-shadow: 20px 0px #fff, 40px 10px #fff;
+    }
+
+   /* Suelo */
+    .suelo {
+      position: absolute;
+      bottom: 0;
+      width: 118%;
+      height: 100px;
+      background: linear-gradient(to top, #2e8b57, #228b22);
+      box-shadow: inset 0 10px 15px #1b4d16;
+      z-index: 5;
+    }
+    /* Lago */
+    .lago {
+      position: absolute;
+      bottom: 15px;
+      left: 20%;
+      width: 78%;
+      height: 70px;
+      background: radial-gradient(circle at center, #4fa0e0, #1e5293);
+      border-radius: 40% / 100%;
+      box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.3);
+      z-index: 6;
+      overflow: hidden;
+    }
+
+    /* Peces */
+    .pez {
+      position: absolute;
+      width: 30px; height: 15px;
+      border-radius: 50%;
+      top: 50%;
+      transform-origin: center;
+      filter: drop-shadow(0 0 1px rgba(0,0,0,0.4));
+      animation-timing-function: linear;
+    }
+
+    .pez::before {
+      content: "";
+      position: absolute;
+      left: -10px; top: 3px;
+      width: 10px; height: 10px;
+      clip-path: polygon(100% 0, 0 50%, 100% 100%);
+    }
+
+    .pez1 {
+      background: #FFA500;
+      animation: nadarPez1 8s linear infinite;
+      top: 20%; left: -40px;
+    }
+    .pez1::before { background: #ff8c00; }
+
+    .pez2 {
+      background: #FFD700;
+      animation: nadarPez2 6s linear infinite;
+      top: 60%; left: 100%;
+      transform: scaleX(-1);
+    }
+    .pez2::before { background: #ffec00; }
+
+    .pez3 {
+      background: #ffb347;
+      animation: nadarPez3 10s linear infinite;
+      top: 40%; left: -30px;
+    }
+    .pez3::before { background: #ffa500; }
+
+    .pez4 {
+      background: #fff176;
+      animation: nadarPez4 7s linear infinite;
+      top: 55%; left: 110%;
+      transform: scaleX(-1);
+    }
+    .pez4::before { background: #ffeb3b; }
+
+    .pez5 {
+      background: #f0ad4e;
+      animation: nadarPez5 9s linear infinite;
+      top: 30%; left: -50px;
+    }
+    .pez5::before { background: #e68900; }
+
+    @keyframes nadarPez1 {
+      0% { left: -40px; transform: scaleX(1) rotate(0deg); }
+      50% { transform: scaleX(1) rotate(10deg); }
+      100% { left: 100%; transform: scaleX(1) rotate(0deg); }
+    }
+
+    @keyframes nadarPez2 {
+      0% { left: 100%; transform: scaleX(-1) rotate(0deg); }
+      50% { transform: scaleX(-1) rotate(-10deg); }
+      100% { left: -50px; transform: scaleX(-1) rotate(0deg); }
+    }
+
+    @keyframes nadarPez3 {
+      0% { left: -30px; transform: scaleX(1) rotate(0deg); }
+      50% { transform: scaleX(1) rotate(15deg); }
+      100% { left: 110%; transform: scaleX(1) rotate(0deg); }
+    }
+
+    @keyframes nadarPez4 {
+      0% { left: 110%; transform: scaleX(-1) rotate(0deg); }
+      50% { transform: scaleX(-1) rotate(-15deg); }
+      100% { left: -60px; transform: scaleX(-1) rotate(0deg); }
+    }
+
+    @keyframes nadarPez5 {
+      0% { left: -50px; transform: scaleX(1) rotate(0deg); }
+      50% { transform: scaleX(1) rotate(12deg); }
+      100% { left: 105%; transform: scaleX(1) rotate(0deg); }
+    }
+
+    /* Árboles */
+    .arbol1, .arbol2 {
+      position: absolute;
+      bottom: 100px;
+      z-index: 3;
+    }
+
+    .arbol1 .tronco {
+      width: 15px; height: 50px;
+      background: #8B5A2B;
+      box-shadow: inset 2px 0 4px #5c3a11;
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      border-radius: 3px;
+    }
+
+    .arbol1 .copa {
+      position: absolute;
+      bottom: 50px;
+      left: 50%;
+      width: 80px; height: 90px;
+      background: #228B22;
+      border-radius: 50% / 60%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px #2e8b57, inset 0 5px 10px #3cb371;
+    }
+
+    .arbol2 .tronco {
+      width: 18px; height: 55px;
+      background: #6b3e1a;
+      box-shadow: inset 2px 0 4px #4a2c0b;
+      position: absolute;
+      bottom: 0; left: 50%;
+      transform: translateX(-50%);
+      border-radius: 3px;
+    }
+
+    .arbol2 .copa {
+      position: absolute;
+      bottom: 55px;
+      left: 50%;
+      width: 100px; height: 90px;
+      background: linear-gradient(135deg, #006400 60%, #228B22);
+      border-radius: 45% / 55%;
+      transform: translateX(-50%);
+      box-shadow: 0 0 10px #2e8b57, inset 0 10px 10px #2e8b57;
+    }
+
+    .arbusto {
+      position: absolute;
+      bottom: 100px;
+      background: radial-gradient(circle at center, #006400 70%, #228B22 90%);
+      border-radius: 50%;
+      filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.25));
+      width: 40px; height: 30px;
+      z-index: 4;
+    }
+
+    .piedra {
+      position: absolute;
+      bottom: 95px;
+      background: #999;
+      border-radius: 50% / 40%;
+      box-shadow: inset -3px -3px 7px #bbb, inset 3px 3px 6px #666;
+      filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.25));
+      z-index: 5;
+    }
+
+    .piedra1 { width: 18px; height: 12px; }
+    .piedra2 { width: 25px; height: 17px; }
+    .piedra3 { width: 30px; height: 20px; }
+
+    .flor {
+      position: absolute;
+      bottom: 105px;
+      width: 22px; height: 22px;
+      z-index: 7;
+      filter: drop-shadow(0 0 4px #f5a9cb);
+    }
+
+    .flor .petalos {
+      position: relative;
+      width: 22px; height: 22px;
+      background: pink;
+      border-radius: 50%;
+      box-shadow:
+        10px 0 0 pink,
+        5px 9px 0 pink,
+        -5px 9px 0 pink,
+        -10px 0 0 pink,
+        -5px -9px 0 pink,
+        5px -9px 0 pink;
+      animation: moverPetalos 2.5s ease-in-out infinite alternate;
+      transform-origin: center;
+    }
+
+    .flor .centro {
+      position: absolute;
+      top: 6px; left: 6px;
+      width: 10px; height: 10px;
+      background: yellow;
+      border-radius: 50%;
+      box-shadow: 0 0 5px #ffd700;
+      z-index: 2;
+    }
+
+    .flor .tallo {
+      position: absolute;
+      bottom: -45px;
+      left: 50%;
+      width: 4px; height: 45px;
+      background: linear-gradient(to top, #0b6623, #228b22);
+      transform: translateX(-50%);
+      border-radius: 2px;
+      z-index: 1;
+    }
+    /* Luna */
+     .luna {
+      position: absolute;
+      top: 60px;
+      right: 100px;
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle at center, #fff, #ddd);
+      border-radius: 50%;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.5);
+      z-index: 2;
+    }
+
+    @keyframes moverPetalos {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(8deg); }
+    }
+
+    
+  </style>
+</head>
+<body>
+
+  <div class="frase">No permitas que un contratiempo prenda en fuego tu paraje</div>
+
+  <!-- Estrellas -->
+  <div class="estrella" style="top: 30px; left: 100px; width: 3px; height: 3px;"></div>
+  <div class="estrella" style="top: 80px; left: 300px; width: 2px; height: 2px;"></div>
+  <div class="estrella" style="top: 150px; left: 500px; width: 2.5px; height: 2.5px;"></div>
+  <div class="estrella" style="top: 50px; left: 700px; width: 2px; height: 2px;"></div>
+  <div class="estrella" style="top: 120px; left: 900px; width: 3px; height: 3px;"></div>
+  <div class="estrella" style="top: 40px; left: 80%; width: 1.5px; height: 1.5px;"></div>
+  <div class="estrella" style="top: 10px; left: 900px; width: 1.5px; height: 1.5px;"></div>
+  <div class="estrella" style="top: 50px; left: 150px; width: 2.2px; height: 2.2px;"></div>
+  <div class="estrella" style="top: 90px; left: 300px; width: 1.8px; height: 1.8px;"></div>
+  <div class="estrella" style="top: 25px; left: 600px; width: 2.7px; height: 2.7px;"></div>
+  <div class="estrella" style="top: 120px; left: 720px; width: 2.3px; height: 2.3px;"></div>
+  <div class="estrella" style="top: 15px; left: 820px; width: 1.6px; height: 1.6px;"></div>
+  <div class="estrella" style="top: 75px; left: 950px; width: 2.9px; height: 2.9px;"></div>
+  <div class="estrella" style="top: 110px; left: 1030px; width: 2px; height: 2px;"></div>
+  <div class="estrella" style="top: 35px; left: 1080px; width: 3px; height: 3px;"></div>
+  <div class="estrella" style="top: 60px; left: 1150px; width: 1.7px; height: 1.7px;"></div>
+  <div class="estrella" style="top: 15px; left: 50px; width: 1.5px; height: 1.5px;"></div>
+  <div class="estrella" style="top: 40px; left: 180px; width: 2.5px; height: 2.5px;"></div>
+  <div class="estrella" style="top: 75px; left: 320px; width: 2px; height: 2px;"></div>
+  <div class="estrella" style="top: 20px; left: 480px; width: 1px; height: 1px;"></div>
+  <div class="estrella" style="top: 100px; left: 600px; width: 3px; height: 3px;"></div>
+  <div class="estrella" style="top: 55px; left: 750px; width: 1.8px; height: 1.8px;"></div>
+  <div class="estrella" style="top: 35px; left: 890px; width: 2.2px; height: 2.2px;"></div>
+  <div class="estrella" style="top: 65px; left: 1000px; width: 1.3px; height: 1.3px;"></div>
+  <div class="estrella" style="top: 10px; left: 1120px; width: 2.6px; height: 2.6px;"></div>
+  <div class="estrella" style="top: 90px; left: 50px; width: 1.9px; height: 1.9px;"></div>
+  <div class="estrella" style="top: 25px; left: 220px; width: 1.2px; height: 1.2px;"></div>
+  <div class="estrella" style="top: 70px; left: 380px; width: 2.7px; height: 2.7px;"></div>
+  <div class="estrella" style="top: 15px; left: 540px; width: 1.6px; height: 1.6px;"></div>
+  <div class="estrella" style="top: 95px; left: 700px; width: 2.4px; height: 2.4px;"></div>
+  <div class="estrella" style="top: 45px; left: 850px; width: 1px; height: 1px;"></div>
+  <div class="estrella" style="top: 80px; left: 980px; width: 3.2px; height: 3.2px;"></div>
+  <div class="estrella" style="top: 30px; left: 1100px; width: 1.4px; height: 1.4px;"></div>
+
+  <div class="luna"></div>
+
+  <!-- Nubes con movimiento -->
+  <div class="nube nube1"></div>
+  <div class="nube nube2"></div>
+  <div class="nube nube3"></div>
+  <div class="nube nube4 reversa"></div>
+  <div class="nube nube5 reversa"></div>
+  <div class="nube nube6 reversa"></div>
+
+  <div class="suelo"></div>
+
+  <div class="lago">
+    <div class="pez pez1"></div>
+    <div class="pez pez2"></div>
+    <div class="pez pez3"></div>
+    <div class="pez pez4"></div>
+    <div class="pez pez5"></div>
+  </div>
+
+  <!-- Árboles -->
+  <div class="arbol1" style="left: 12%;"><div class="tronco"></div><div class="copa"></div></div>
+  <div class="arbol1" style="left: 40%;"><div class="tronco"></div><div class="copa"></div></div>
+  <div class="arbol1" style="left: 85%;"><div class="tronco"></div><div class="copa"></div></div>
+  <div class="arbol2" style="left: 25%;"><div class="tronco"></div><div class="copa"></div></div>
+  <div class="arbol2" style="left: 70%;"><div class="tronco"></div><div class="copa"></div></div>
+
+  <!-- Arbustos -->
+  <div class="arbusto" style="left: 18%;"></div>
+  <div class="arbusto" style="left: 33%;"></div>
+  <div class="arbusto" style="left: 60%; width: 60px; height: 40px;"></div>
+  <div class="arbusto" style="left: 75%; width: 55px; height: 35px;"></div>
+
+  <!-- Piedras -->
+  <div class="piedra piedra1" style="left: 22%;"></div>
+  <div class="piedra piedra2" style="left: 35%;"></div>
+  <div class="piedra piedra3" style="left: 55%;"></div>
+  <div class="piedra piedra2" style="left: 68%;"></div>
+  <div class="piedra piedra1" style="left: 80%;"></div>
+
+  <!-- Flores -->
+<div class="flor" style="left: 2%;"><div class="tallo"></div><div class="petalos"><div class="centro"></div></div></div>
+<div class="flor" style="left: 8%;"><div class="tallo"></div><div class="petalos"><div class="centro"></div></div></div>
+<div class="flor" style="left: 15%;"><div class="tallo"></div><div class="petalos"><div class="centro"></div></div></div>
+  
+</body>
+</html>
